@@ -22,9 +22,8 @@ class PokemonList extends Component {
   }
 
   render() {
-    console.log(this.state.count);
     return this.state.pokemons.map((pokemon) => (
-      <PokemonItem pokemon={pokemon} />
+      <PokemonItem key={pokemon.url} pokemon={pokemon} />
     ));
   }
 }
