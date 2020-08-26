@@ -1,31 +1,28 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import PokemonList from "./components/PokemonList";
+import Header from "./components/Header";
 
 import "./App.css";
 
 class App extends Component {
-  state = {
-    pokemons: [
-      {
-        id: 1,
-        title: "Pikachu",
-      },
-      {
-        id: 2,
-        title: "Bulbasaur",
-      },
-      {
-        id: 1,
-        title: "Squirtle",
-      },
-    ],
-  };
-
   render() {
     return (
-      <div className="App">
-        <Navbar />
-      </div>
+      <Router>
+        <div className="App">
+          <Header />
+          <Navbar />
+          <Route
+            path="/pokemons"
+            render={(props) => (
+              <React.Fragment>
+                <PokemonList />
+              </React.Fragment>
+            )}
+          />
+        </div>
+      </Router>
     );
   }
 }
