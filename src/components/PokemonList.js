@@ -4,7 +4,6 @@ import axios from "axios";
 
 class PokemonList extends Component {
   state = {
-    count: [],
     next: [],
     previous: [],
     pokemons: [],
@@ -13,7 +12,6 @@ class PokemonList extends Component {
   componentDidMount() {
     axios.get("https://pokeapi.co/api/v2/pokemon").then((res) =>
       this.setState({
-        count: res.data.count,
         next: res.data.next,
         previous: res.data.previous,
         pokemons: res.data.results,
