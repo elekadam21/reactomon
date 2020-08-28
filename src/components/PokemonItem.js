@@ -8,6 +8,7 @@ export class PokemonItem extends Component {
     name: [],
     front_default: [],
     url: this.props.pokemon.url,
+    pokemon: [],
   };
 
   componentDidMount() {
@@ -23,7 +24,9 @@ export class PokemonItem extends Component {
     return (
       <div>
         <Link
-          to={this.props.pokemon.url.replace("https://pokeapi.co/api/v2", "")}
+          to={this.props.pokemon.url
+            .replace("https://pokeapi.co/api/v2", "")
+            .slice(0, -1)}
         >
           <p>{this.props.pokemon.name}</p>
           <img src={this.state.front_default} alt="Pokemon-img" />
