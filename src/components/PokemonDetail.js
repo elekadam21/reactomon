@@ -46,16 +46,22 @@ const PokemonDetail = () => {
             <h3>Weight</h3>
             <p>{pokemon.data.weight / 10 + "kg"}</p>
           </div>
-          <div className="pokemon-column">
+          <div className="pokemon-column-stat">
             <h3>Stats</h3>
             {pokemon.data.stats.map((stat) => (
-              <div className="stat">
-                <p key={stat.stat.name}>{stat.stat.name} : </p>
+              <div className="stat" key={stat.stat.name}>
+                <p>{stat.stat.name} : </p>
                 <div className="stat-number">
                   <p>{stat.base_stat}</p>
                 </div>
               </div>
             ))}
+          </div>
+          <div className="image">
+            <img
+              src={pokemon.data.sprites.other.dream_world.front_default}
+              alt="pokemon"
+            />
           </div>
         </div>
       </React.Fragment>

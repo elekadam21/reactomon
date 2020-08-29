@@ -20,6 +20,7 @@
   flex: 1;
   border: 1px solid black;
   border-radius: 3px;
+  flex-basis: 25%;
 }
 
 .pokemon-column h3 {
@@ -36,4 +37,18 @@
   display: inline-flex;
   width: 100%;
   justify-content: space-between;
+}
+
+.pokemon-column-stat {
+  flex: 1;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.container .image {
+  text-align: center;
+}
+
+.container img {
+  width: 500px;
 }
