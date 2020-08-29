@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PokemonItem from "./PokemonItem";
 import { useHttp } from "../hooks/http";
 
-const PokemonList = (props) => {
+const PokemonList = () => {
   const [pokemonUrl, setPokemonUrl] = useState(
     "https://pokeapi.co/api/v2/pokemon"
   );

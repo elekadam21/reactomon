@@ -22,17 +22,17 @@ const PokemonItem = (props) => {
 
   if (!isLoading) {
     content = (
-      <div className="card">
-        <Link
-          to={props.pokemon.url
-            .replace("https://pokeapi.co/api/v2", "")
-            .slice(0, -1)}
-        >
+      <Link
+        to={props.pokemon.url
+          .replace("https://pokeapi.co/api/v2", "")
+          .slice(0, -1)}
+      >
+        <div className="card">
           <h3>{name}</h3>
           <span className="helper"></span>
           <img src={front_default} alt="Pokemon-img" />
-        </Link>
-      </div>
+        </div>
+      </Link>
     );
   }
 
