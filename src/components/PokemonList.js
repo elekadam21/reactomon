@@ -1,29 +1,46 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PokemonItem from "./PokemonItem";
-import axios from "axios";
+import { useHttp } from "../hooks/http";
+import PropTypes from "prop-types";
 
-class PokemonList extends Component {
-  state = {
-    next: [],
-    previous: [],
-    pokemons: [],
+const PokemonList = (props) => {
+  const [pokemonUrl, setPokemonUrl] = useState(
+    "https://pokeapi.co/api/v2/pokemon"
+  );
+
+  const [isLoading, fetchedData] = useHttp(pokemonUrl, [pokemonUrl]);
+
+  const [next, previous, pokemons] = fetchedData
+    ? [
+        fetchedData.data.next,
+        fetchedData.data.previous,
+        fetchedData.data.results,
+      ]
+    : [null, null, []];
+
+  console.log(pokemonUrl);
+  // console.log(next);
+  // console.log(previous);
+
+  const pokemonUrlHandler = (url) => {
+    setPokemonUrl(url);
   };
 
-  componentDidMount() {
-    axios.get("https://pokeapi.co/api/v2/pokemon").then((res) =>
-      this.setState({
-        next: res.data.next,
-        previous: res.data.previous,
-        pokemons: res.data.results,
-      })
-    );
-  }
+  return (
+    <React.Fragment>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {pokemons.map((pokemon) => (
+          <div style={{ flex: "1" }} key={pokemon.url}>
+            <PokemonItem key={pokemon.url} pokemon={pokemon} />
+          </div>
+        ))}
+      </div>
+    </React.Fragment>
+  );
+};
 
-  render() {
-    return this.state.pokemons.map((pokemon) => (
-      <PokemonItem key={pokemon.url} pokemon={pokemon} />
-    ));
-  }
-}
+PokemonList.propTypes = {
+  pokemons: PropTypes.array.isRequired,
+};
 
 export default PokemonList;
