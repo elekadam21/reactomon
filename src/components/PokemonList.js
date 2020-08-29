@@ -17,12 +17,6 @@ const PokemonList = (props) => {
       ]
     : [null, null, []];
 
-  console.log(pokemons);
-
-  const pokemonUrlHandler = (url) => {
-    setPokemonUrl(url);
-  };
-
   let content = <p>Loading...</p>;
 
   if (!isLoading && pokemons && pokemons.length > 0) {
@@ -30,23 +24,27 @@ const PokemonList = (props) => {
       <React.Fragment>
         <button
           onClick={() => {
-            pokemonUrlHandler(previous);
+            setPokemonUrl(previous);
           }}
         >
           Previous
         </button>
         <button
           onClick={() => {
-            pokemonUrlHandler(next);
+            setPokemonUrl(next);
           }}
         >
           Next
         </button>
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-evenly",
+          }}
+        >
           {pokemons.map((pokemon) => (
-            <div style={{ flex: "1" }} key={pokemon.url}>
-              <PokemonItem key={pokemon.url} pokemon={pokemon} />
-            </div>
+            <PokemonItem key={pokemon.url} pokemon={pokemon} />
           ))}
         </div>
       </React.Fragment>

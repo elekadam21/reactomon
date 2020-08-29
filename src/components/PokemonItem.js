@@ -1,38 +1,42 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { useHttp } from "../hooks/http";
 
-export class PokemonItem extends Component {
-  state = {
-    name: [],
-    front_default: [],
-    url: this.props.pokemon.url,
-    pokemon: [],
-  };
+import "./PokemonItem.css";
 
-  componentDidMount() {
-    axios.get(this.state.url).then((res) =>
-      this.setState({
-        name: res.data.name,
-        front_default: res.data.sprites.other.dream_world.front_default,
-      })
-    );
-  }
+const PokemonItem = (props) => {
+  const [individualPokemonUrl] = useState(props.pokemon.url);
 
-  render() {
-    return (
-      <div>
+  const [isLoading, fetchedData] = useHttp(individualPokemonUrl, [
+    individualPokemonUrl,
+  ]);
+
+  const [name, front_default] = fetchedData
+    ? [
+        fetchedData.data.name,
+        fetchedData.data.sprites.other.dream_world.front_default,
+      ]
+    : [null, null];
+
+  let content = <p>Loading...</p>;
+
+  if (!isLoading) {
+    content = (
+      <div className="card">
         <Link
-          to={this.props.pokemon.url
+          to={props.pokemon.url
             .replace("https://pokeapi.co/api/v2", "")
             .slice(0, -1)}
         >
-          <p>{this.props.pokemon.name}</p>
-          <img src={this.state.front_default} alt="Pokemon-img" />
+          <h3>{name}</h3>
+          <span className="helper"></span>
+          <img src={front_default} alt="Pokemon-img" />
         </Link>
       </div>
     );
   }
-}
+
+  return content;
+};
 
 export default PokemonItem;
