@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PokemonItem from "./PokemonItem";
 import { useHttp } from "../hooks/http";
-import PropTypes from "prop-types";
 
 const PokemonList = (props) => {
   const [pokemonUrl, setPokemonUrl] = useState(
@@ -18,29 +17,45 @@ const PokemonList = (props) => {
       ]
     : [null, null, []];
 
-  console.log(pokemonUrl);
-  // console.log(next);
-  // console.log(previous);
+  console.log(pokemons);
 
   const pokemonUrlHandler = (url) => {
     setPokemonUrl(url);
   };
 
-  return (
-    <React.Fragment>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {pokemons.map((pokemon) => (
-          <div style={{ flex: "1" }} key={pokemon.url}>
-            <PokemonItem key={pokemon.url} pokemon={pokemon} />
-          </div>
-        ))}
-      </div>
-    </React.Fragment>
-  );
-};
+  let content = <p>Loading...</p>;
 
-PokemonList.propTypes = {
-  pokemons: PropTypes.array.isRequired,
+  if (!isLoading && pokemons && pokemons.length > 0) {
+    content = (
+      <React.Fragment>
+        <button
+          onClick={() => {
+            pokemonUrlHandler(previous);
+          }}
+        >
+          Previous
+        </button>
+        <button
+          onClick={() => {
+            pokemonUrlHandler(next);
+          }}
+        >
+          Next
+        </button>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {pokemons.map((pokemon) => (
+            <div style={{ flex: "1" }} key={pokemon.url}>
+              <PokemonItem key={pokemon.url} pokemon={pokemon} />
+            </div>
+          ))}
+        </div>
+      </React.Fragment>
+    );
+  } else if ((!isLoading && !pokemons) || pokemons.length === 0) {
+    content = <p>Could not fetch any data.</p>;
+  }
+
+  return content;
 };
 
 export default PokemonList;
