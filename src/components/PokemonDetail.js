@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useHttp } from "../hooks/http";
 import "./PokemonDetail.css";
 
-const PokemonDetail = () => {
+const PokemonDetail = (props) => {
   let { id } = useParams();
 
   const [
