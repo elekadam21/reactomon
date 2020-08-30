@@ -1,19 +1,18 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useHttp } from "../hooks/http";
 import "./PokemonDetail.css";
 
 const PokemonDetail = () => {
   let { id } = useParams();
 
-  const [isLoading, pokemon] = useHttp(
-    `https://pokeapi.co/api/v2/pokemon/${id}`,
-    []
-  );
+  const [
+    isLoading,
+    pokemon,
+  ] = useHttp(`https://pokeapi.co/api/v2/pokemon/${id}`, [id]);
   let content = "Loading...";
 
   if (!isLoading && pokemon) {
-    console.log(pokemon.data);
     content = (
       <React.Fragment>
         <div className="container">
@@ -23,7 +22,9 @@ const PokemonDetail = () => {
                 pokemon.data.species.name.slice(1)}
             </h1>
             <h1 className="pokemon-id">
+              <Link to={"/pokemon/" + (parseInt(id) - 1)}>Previous</Link>
               {"#" + ("00" + pokemon.data.id).slice(-3)}
+              <Link to={"/pokemon/" + (parseInt(id) + 1)}>Next</Link>
             </h1>
           </div>
           <div className="pokemon-column">
@@ -50,10 +51,7 @@ const PokemonDetail = () => {
             <h3>Stats</h3>
             {pokemon.data.stats.map((stat) => (
               <div className="stat" key={stat.stat.name}>
-                <p>{stat.stat.name} : </p>
-                <div className="stat-number">
-                  <p>{stat.base_stat}</p>
-                </div>
+                {stat.stat.name} : {stat.base_stat}
               </div>
             ))}
           </div>

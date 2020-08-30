@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container a {
+  background-color: #aaaaaa;
+  font-size: 32px;
+  padding: 20px 50px;
+  margin: 10px 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.container a:hover {
+  background-color: #888888;
+}

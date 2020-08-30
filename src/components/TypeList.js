@@ -1,24 +1,31 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React from "react";
+import { useHttp } from "../hooks/http";
+import "./TypeList.css";
 
-class TypeList extends Component {
-  state = {
-    types: [],
-  };
+const TypeList = () => {
+  const [isLoading, fetchedData] = useHttp(
+    "https://pokeapi.co/api/v2/type",
+    []
+  );
 
-  componentDidMount() {
-    axios.get("https://pokeapi.co/api/v2/type").then((res) =>
-      this.setState({
-        types: res.data.results,
-      })
+  const types = fetchedData ? fetchedData.data.results : null;
+
+  let content = "Loading...";
+
+  if (!isLoading && types !== null) {
+    content = (
+      <div className="container">
+        {" "}
+        {types.map((type) => (
+          <a href={type.url} key={type.url}>
+            {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
+          </a>
+        ))}
+      </div>
     );
   }
 
-  render() {
-    return this.state.types.map((type) => (
-      <p key={type.url}>{type.name + " " + type.url}</p>
-    ));
-  }
-}
+  return content;
+};
 
 export default TypeList;

@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./layout/Navbar";
 import PokemonList from "./components/PokemonList";
 import TypeList from "./components/TypeList";
 import PokemonDetail from "./components/PokemonDetail";
-import Header from "./components/Header";
+import Header from "./layout/Header";
 
 import "./App.css";
 
